@@ -15,19 +15,16 @@ public class ExaminerServiceImpl implements ExaminerService {
     private final QuestionService questionService;
 
     public ExaminerServiceImpl(QuestionService questionService) {
+
         this.questionService = questionService;
     }
 
     @Override
     public Collection<Question> getQuestions(int amount) {
         Set<Question> questions = new HashSet<>();
-        if (amount <= questionService.getAll().size()) {
-            while (questions.size() != amount) {
-                questions.add(questionService.getRandomQuestion());
-            }
-            return questions;
-        } else {
-            throw new AmountBiggerThenQuestionsListSizeException();
+        while (questions.size() != amount) {
+            questions.add(questionService.getRandomQuestion());
         }
+        return questions;
     }
 }
